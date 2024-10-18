@@ -19,6 +19,9 @@ publishedAt :{
 },
 publication:{
     type:String
+},
+imageUrl:{
+    type:String
 }
 
 })

@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
 app.use(express.json());
+const fs=require('fs')
 const mongoose = require("mongoose");
 const Book = require("./model/bookModel");
+
+const upload = require('./middleware/multerConfig').upload;
 //alternative
 //const app=require('express')()
 const connectionString =
@@ -20,8 +23,16 @@ app.get("/", (req, res) => {
 });
 //if something takes time then we must put asyn and wait
 //insert operation
-app.post("/book", async (req, res) => {
+app.post("/book",upload.single("image"), async (req, res) => {
+  console.log(req.file)
   console.log(req.body);
+  let filename
+  if(!req.file){
+    filename="js.png"
+  }
+  else{
+    filename="http://localhost:3000/"+req.file.filename
+    }
   //destructuring
   const {
     bookName,
@@ -40,6 +51,7 @@ app.post("/book", async (req, res) => {
     authorName,
     publishedAt,
     publication,
+    imageUrl:filename
   });
   res.status(201).json({
     message: "book created successfully",
@@ -84,21 +96,43 @@ app.delete("/book/:id", async (req, res) => {
   });
 });
 //update operation
-app.patch("/book/:id", async (req, res) => {
+app.patch("/book/:id",upload.single('image'), async (req, res) => {
   const id = req.params.id;
   const { bookName, bookPrice, isbnNumber, authorName, publishedAt,publication } = req.body
+  const olddata=await  Book.findById(id)
+  let filename
+  if (req.file){
+    const oldimagepath =olddata.imageUrl
+    console.log(oldimagepath)
+    const localHostUrlLength="http://localhost:3000/".length
+    const newoldImagePath= oldimagepath.slice(localHostUrlLength)
+    console.log(newoldImagePath)
+    fs.unlink(`storage/${newoldImagePath}`,(err)=>{
+      if(err){
+        console.log(err)
+        }
+        else{
+          console.log("file deleted")
+        }
+    })
+    filename="http://localhost:3000/"+req.file.filename
+    console.log(filename)
+  }
   await Book.findByIdAndUpdate(id,{
     bookName,
     bookPrice,
     isbnNumber,
     publication,
     authorName,
-    publishedAt
+    publishedAt,
+    imageUrl:filename
   });
   res.status(200).json({
     message: "book updated successfully",
   })
 })
+app.use(express.static("./storage"))
 app.listen(3000, () => {
   console.log("server is running on port 3000");
 });
+
