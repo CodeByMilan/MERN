@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const SingleBook = () => {
+  const navigate = useNavigate()
   const { id } = useParams();
   const [book, setBook] = useState({});
 
@@ -16,6 +17,16 @@ const SingleBook = () => {
   useEffect(() => {
     fetchBook();
   });
+  const handleDelete =async (e)=>{
+    e.preventDefault()
+    const response =await axios.delete(`http://localhost:3000/book/${id}`)
+    if (response.status==200){
+      navigate("/")
+    }
+    else{
+      alert("Error ")
+    }
+  }
   return (
     <>
       <Navbar />
@@ -54,6 +65,7 @@ const SingleBook = () => {
           <p className="mb-3 text-lg leading-relaxed text-gray-700 dark:text-gray-400">
             {book.description}
           </p>
+          <button className="bg-blue-300 p-4 m-2" onClick={handleDelete}>Delete</button>
         </div>
       </div>
     </>

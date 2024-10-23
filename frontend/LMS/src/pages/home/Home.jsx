@@ -23,7 +23,7 @@ import axios from 'axios'
       {
         book.length>0 && book.map((book)=>{
           return(
-            <Card book={book}/>
+            <Card key={book.id} book={book}/>
           )
         })
       }
