@@ -7,7 +7,10 @@ import axios from 'axios'
   const [book,setBook]=useState([])
   const fetchBooks=async ()=>{
    const response = await axios.get('http://localhost:3000/book')
-   console.log(response)
+  //  console.log(response.data.data)
+  if(response.status==200){
+    setBook(response.data.data)
+  }
 
   }
   useEffect(()=>{
@@ -16,13 +19,14 @@ import axios from 'axios'
    return (
      <>
      <Navbar/>
-     <div className='flex flex-wrap justify-evenly mt-20' >
-     <Card/>
-     <Card/>
-     <Card/>
-     <Card/>
-     <Card/>
-     <Card/>
+     <div className='flex flex-wrap justify-evenly gap-3 mt-20' >
+      {
+        book.length>0 && book.map((book)=>{
+          return(
+            <Card book={book}/>
+          )
+        })
+      }
      </div>
 
      </>

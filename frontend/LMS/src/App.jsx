@@ -1,5 +1,6 @@
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Home from './pages/home/Home'
+import SingleBook from './pages/singleBook/SingleBook'
 
 function App() {
   return (
@@ -7,7 +8,7 @@ function App() {
      <BrowserRouter>
      <Routes>
       <Route path="/" element={<Home/>} />
-      <Route path="/about" element={<h1>About page</h1>} />
+      <Route path="/book/:id" element={<SingleBook/>} />
      </Routes>
      </BrowserRouter>
     </>

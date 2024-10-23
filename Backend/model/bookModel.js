@@ -20,6 +20,9 @@ publishedAt :{
 publication:{
     type:String
 },
+description:{
+    type:String
+},
 imageUrl:{
     type:String
 }
