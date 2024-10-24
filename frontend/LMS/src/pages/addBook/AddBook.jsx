@@ -73,7 +73,7 @@ const handleSubmit=async(e)=>{
   })
 formData.append('image',image)
 
- const response = await axios.post('https://mern-1fyn.onrender.com/book',formData)
+ const response = await axios.post('https://mern-2t3p.onrender.com/book',formData)
 
  if(response.status==201){
   navigate("/")
