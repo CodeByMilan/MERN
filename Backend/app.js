@@ -44,7 +44,7 @@ app.post("/book", upload.single("image"), async (req, res) => {
   console.log(req.body);
   let filename;
   if (!req.file) {
-    filename = "http://localhost:3000/the great gatsby.jpg";
+    filename = "https://mern-1fyn.onrender.com/book/the great gatsby.jpg";
   } else {
     filename = "http://localhost:3000/" + req.file.filename;
   }
