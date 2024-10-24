@@ -13,10 +13,14 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 app.use(
   cors({
-    origin: "*",
+    origin: 'https://mern-pi-two.vercel.app', // Allow this origin
+    credentials: true 
   })
 );
-
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.sendStatus(200); // Respond to preflight requests
+});
 
 //database connection
 const connectionString =
