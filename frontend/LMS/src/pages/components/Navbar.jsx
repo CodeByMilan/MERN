@@ -6,8 +6,8 @@ const Navbar = () => {
     <>
       <nav className="bg-black text-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
         <div className="max-w-screen-xl flex items-start justify-between  mx-auto p-4">
-          <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="BookStore Logo" />
-          <span className="text-2xl font-semibold whitespace-nowrap dark:text-white">BookStore</span>
+          <img src="https://www.shutterstock.com/image-vector/book-store-logo-icon-classic-600nw-1780228784.jpg" className="h-8" alt="BookStore Logo" />
+          <span className="text-2xl font-semibold whitespace-nowrap dark:text-white"><Link to="/">BookStore</Link></span>
 
           <div className="flex md:order-2 space-x-3 md:space-x-0">
             <Link to='/addbook'>

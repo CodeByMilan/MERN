@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 const SingleBook = () => {
   const navigate = useNavigate()
   const { id } = useParams();
@@ -16,11 +16,11 @@ const SingleBook = () => {
   };
   useEffect(() => {
     fetchBook();
-  });
-  const handleDelete =async (e)=>{
-    e.preventDefault()
+  },[]);
+  const handleDelete =async ()=>{
     const response =await axios.delete(`http://localhost:3000/book/${id}`)
     if (response.status==200){
+      //just ensure that the page is refreshed after navigating back to the home page as it is searching for the deleted book id 
       navigate("/")
     }
     else{
@@ -66,6 +66,9 @@ const SingleBook = () => {
             {book.description}
           </p>
           <button className="bg-blue-300 p-4 m-2" onClick={handleDelete}>Delete</button>
+          <Link to ={`/editbook/${id}`} className="bg-blue-300 p-4 m-2 text-center" >
+          <button>Edit</button>
+          </Link>
         </div>
       </div>
     </>

@@ -4,14 +4,14 @@ import Card from '../components/Card'
 import axios from 'axios'
  
  const Home = () => {
+ 
   const [book,setBook]=useState([])
   const fetchBooks=async ()=>{
-   const response = await axios.get('http://localhost:3000/book')
+   const response = await axios.get('http://localhost:3000/book',{ timeout: 10000 })
   //  console.log(response.data.data)
   if(response.status==200){
     setBook(response.data.data)
   }
-
   }
   useEffect(()=>{
     fetchBooks()
