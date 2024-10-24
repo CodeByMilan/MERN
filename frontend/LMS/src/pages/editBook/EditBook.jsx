@@ -42,7 +42,7 @@ const handleSubmit=async(e)=>{
   })
 formData.append('image',image)
 
- const response = await axios.patch('http://localhost:3000/book/'+id,formData)
+ const response = await axios.patch('https://mern-p94h.onrender.com/book/'+id,formData)
 
  if(response.status==200){
   navigate("/book/"+id)
@@ -54,7 +54,7 @@ formData.append('image',image)
 
 
 const fetchBook =async()=>{
-const response =await axios.get("http://localhost:3000/book/"+id)
+const response =await axios.get("https://mern-p94h.onrender.com/book/"+id)
 if(response.status ==200){
   // console.log(response.data.data)
 setData(response.data.data)

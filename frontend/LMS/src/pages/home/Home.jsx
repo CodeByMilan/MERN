@@ -7,7 +7,7 @@ import axios from 'axios'
  
   const [book,setBook]=useState([])
   const fetchBooks=async ()=>{
-   const response = await axios.get('http://localhost:3000/book',{ timeout: 10000 })
+   const response = await axios.get('https://mern-p94h.onrender.com/book',{ timeout: 10000 })
   //  console.log(response.data.data)
   if(response.status==200){
     setBook(response.data.data)

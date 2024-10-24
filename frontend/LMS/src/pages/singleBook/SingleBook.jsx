@@ -9,7 +9,7 @@ const SingleBook = () => {
   const [book, setBook] = useState({});
 
   const fetchBook = async () => {
-    const response = await axios.get(`http://localhost:3000/book/${id}`);
+    const response = await axios.get(`https://mern-p94h.onrender.com/book/${id}`);
     if (response.status == 200) {
       setBook(response.data.data);
     }
@@ -18,7 +18,7 @@ const SingleBook = () => {
     fetchBook();
   },[]);
   const handleDelete =async ()=>{
-    const response =await axios.delete(`http://localhost:3000/book/${id}`)
+    const response =await axios.delete(`https://mern-p94h.onrender.com/book/${id}`)
     if (response.status==200){
       //just ensure that the page is refreshed after navigating back to the home page as it is searching for the deleted book id 
       navigate("/")
