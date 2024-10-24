@@ -18,7 +18,7 @@ const SingleBook = () => {
     fetchBook();
   },[]);
   const handleDelete =async ()=>{
-    const response =await axios.delete(`https://mern-p94h.onrender.com/book/${id}`)
+    const response =await axios.delete(`https://mern-p94h.onrender.com/${id}`)
     if (response.status==200){
       //just ensure that the page is refreshed after navigating back to the home page as it is searching for the deleted book id 
       navigate("/")
