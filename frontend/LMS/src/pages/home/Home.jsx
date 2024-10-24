@@ -2,6 +2,7 @@
 import Navbar from '../components/Navbar'
 import Card from '../components/Card'
 import axios from 'axios'
+import { backendUrl } from '../../config'
  
  const Home = () => {
  

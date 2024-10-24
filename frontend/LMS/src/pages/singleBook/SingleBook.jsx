@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { backendUrl } from "../../config";
 const SingleBook = () => {
   const navigate = useNavigate()
   const { id } = useParams();
