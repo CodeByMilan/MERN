@@ -7,7 +7,7 @@ const fs = require("fs");
 const mongoose = require("mongoose");
 
 //this is used to give access to the storage folder so that image in the storage folder can be accesed directly by frontend
-app.use(express.static("./storage/"));
+app.use('/storage', express.static('storage'));
 
 
 //alternative
@@ -57,7 +57,7 @@ app.post("/book", upload.single("image"), async (req, res) => {
   if (!req.file) {
     filename = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmZBWXUFYSEz3ZFW7Fa7wtzKdtMgcPqNpWvQ&s";
   } else {
-    filename = `${backendUrl}/ ${req.file.filename}`;
+    filename = `${backendUrl}/${req.file.filename}`;
   }
   //destructuring
   const {
@@ -194,7 +194,7 @@ app.patch("/book/:id", upload.single("image"), async (req, res) => {
         console.log("file deleted");
       }
     });
-    filename = `${backendUrl}/ ${ req.file.filename}`;
+    filename = `${backendUrl}/${ req.file.filename}`;
     console.log(filename);
   }
   await Book.findByIdAndUpdate(id, {
