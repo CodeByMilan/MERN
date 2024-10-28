@@ -76,7 +76,7 @@ formData.append('image',image)
 
  const response = await axios.post(`${backendUrl}/book`,formData)
 
- if(response.status==201){
+ if(response.status === 200 || response.status === 201){
   navigate("/")
  }
  else{
