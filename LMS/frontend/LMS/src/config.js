@@ -1,1 +1,1 @@
-export const backendUrl='https://mern-chi-pied.vercel.app'
+export const backendUrl='https://mern-u49b.onrender.com'
