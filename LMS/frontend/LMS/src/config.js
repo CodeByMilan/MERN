@@ -1,0 +1,1 @@
+export const backendUrl='https://mern-opiw.onrender.com'
