@@ -17,9 +17,10 @@ app.use(express.static("./storage/"));
 const cors = require("cors");
 app.use(
   cors({
-    origin: "*",
+    origin: "https://mern-chi-pied.vercel.app",
   })
 );
+
 
 //backendurl 
 // const backendUrl = "http://localhost:300";
