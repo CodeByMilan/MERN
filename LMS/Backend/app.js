@@ -6,6 +6,10 @@ app.use(express.json());
 const fs = require("fs");
 const mongoose = require("mongoose");
 
+//this is used to give access to the storage folder so that image in the storage folder can be accesed directly by frontend
+app.use(express.static("./storage/"));
+
+
 //alternative
 //const app=require('express')()
 
@@ -31,6 +35,7 @@ async function connectToDatabase() {
 }
 connectToDatabase();
 
+//root
 app.get("/", (req, res) => {
   res.status(200).json({
     message: "sucess",
@@ -41,14 +46,17 @@ const Book = require("./model/bookModel");
 const {multer,storage}=require ("./middleware/multerConfig")
 const upload =multer({storage:storage})
 
+
+//new book
 app.post("/book", upload.single("image"), async (req, res) => {
   // console.log(req.file);
   console.log(req.body);
+  try{
   let filename;
   if (!req.file) {
-    filename = `${backendUrl}/the great gatsby.jpg`;
+    filename = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmZBWXUFYSEz3ZFW7Fa7wtzKdtMgcPqNpWvQ&s";
   } else {
-    filename = `${backendUrl}/` + req.file.filename;
+    filename = `${backendUrl}/ ${req.file.filename}`;
   }
   //destructuring
   const {
@@ -75,17 +83,32 @@ app.post("/book", upload.single("image"), async (req, res) => {
   res.status(201).json({
     message: "book created successfully",
   });
+}catch(error){
+  console.log(error);
+  res.status(500).json({
+    message: "server error",
+    });
+  }
   console.log(bookName,bookPrice,isbnNumber,authorName,publishedAt,description)
 });
 
 //read operation 
 //all read
 app.get("/book", async (req, res) => {
+  try {
   const books = await Book.find(); //return array
   res.status(200).json({
     message: "books fetched successfully",
     data: books,
   });
+}
+catch(error){ 
+  console.log(error);
+  res.status(500).json({
+    message: "server error",
+    });
+    }
+
 });
 
 //single read
@@ -141,6 +164,11 @@ app.delete("/book/:id", async (req, res) => {
 //update operation
 app.patch("/book/:id", upload.single("image"), async (req, res) => {
   const id = req.params.id;
+  try{
+    const olddata=await  Book.findById(id);
+    if (!olddata) {
+      return res.status(404).json({ message: "Book not found" });
+      }  
   const {
     bookName,
     bookPrice,
@@ -151,9 +179,7 @@ app.patch("/book/:id", upload.single("image"), async (req, res) => {
     description,
     
   } = req.body;
-  const olddata = await Book.findById(id);
-
-  let filename;
+  let filename=olddata.imageUrl
   if (req.file) {
     const oldimagepath = olddata.imageUrl;
     // console.log(oldimagepath);
@@ -167,7 +193,7 @@ app.patch("/book/:id", upload.single("image"), async (req, res) => {
         console.log("file deleted");
       }
     });
-    filename = `${backendUrl}/` + req.file.filename;
+    filename = `${backendUrl}/ ${ req.file.filename}`;
     console.log(filename);
   }
   await Book.findByIdAndUpdate(id, {
@@ -180,14 +206,12 @@ app.patch("/book/:id", upload.single("image"), async (req, res) => {
     description,
     imageUrl: filename,
   });
-  res.status(200).json({
-    message: "book updated successfully",
-  });
+}
+catch(error){
+  console.log(error)
+  res.status(500).json({ message: "Server error" });
+}
 });
-//this is used to give access to the storage folder so that image in the storage folder can be accesed directly by frontend
-app.use(express.static("./storage/"));
-
-
 app.listen(3000, () => {
   console.log("server is running on port 3000");
 });
