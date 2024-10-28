@@ -1,1 +1,1 @@
-export const backendUrl='https://mern-opiw.onrender.com'
+export const backendUrl='https://mern-u49b.onrender.com'

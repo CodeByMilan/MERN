@@ -20,7 +20,7 @@ app.use(
 //backendurl 
 // const backendUrl = "http://localhost:300";
 //change the backend url once you have deployed the backend so that the image will be loaded from the backend url as we will be hitting the hosted backend url from the front end 
- const backendUrl = "https://mern-opiw.onrender.com";
+ const backendUrl = "https://mern-u49b.onrender.com";
 //database connection
 const connectionString =
   "mongodb+srv://milanacharya2001:milan@cluster0.ka73t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
