@@ -23,7 +23,7 @@ app.use(
 
 
 //backendurl 
-const backendUrl = "http://localhost:300";
+const backendUrl = process.env.backendUrl;
 //change the backend url once you have deployed the backend so that the image will be loaded from the backend url as we will be hitting the hosted backend url from the front end 
 //  const backendUrl = "https://mern-u49b.onrender.com";
 //database connection
