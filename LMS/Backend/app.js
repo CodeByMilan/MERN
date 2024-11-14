@@ -17,15 +17,15 @@ app.use('/storage', express.static('storage'));
 const cors = require("cors");
 app.use(
   cors({
-    origin: "https://mern-chi-pied.vercel.app",
+    origin: "*",
   })
 );
 
 
 //backendurl 
-// const backendUrl = "http://localhost:300";
+const backendUrl = "http://localhost:300";
 //change the backend url once you have deployed the backend so that the image will be loaded from the backend url as we will be hitting the hosted backend url from the front end 
- const backendUrl = "https://mern-u49b.onrender.com";
+//  const backendUrl = "https://mern-u49b.onrender.com";
 //database connection
 const connectionString =
   "mongodb+srv://milanacharya2001:milan@cluster0.ka73t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -61,7 +61,7 @@ app.post("/book", upload.single("image"), async (req, res) => {
   }
   //destructuring
   const {
-    bookName,
+    bookName, 
     bookPrice,
     isbnNumber,
     authorName,
@@ -69,7 +69,7 @@ app.post("/book", upload.single("image"), async (req, res) => {
     publication,
     description
   } = req.body;
-  //or const  bookName = req.body.bookName
+console.log(req.body)
   //if the keyname and valuepair  name is same than we can write only one
   await Book.create({
     bookName,
@@ -84,13 +84,14 @@ app.post("/book", upload.single("image"), async (req, res) => {
   res.status(201).json({
     message: "book created successfully",
   });
+  console.log(bookName,bookPrice,isbnNumber,authorName,publishedAt,description)
 }catch(error){
   console.log(error);
   res.status(500).json({
     message: "server error",
     });
   }
-  console.log(bookName,bookPrice,isbnNumber,authorName,publishedAt,description)
+
 });
 
 //read operation 

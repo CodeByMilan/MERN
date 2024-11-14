@@ -1,1 +1,1 @@
-export const backendUrl = "https://mern-u49b.onrender.com";
+export const backendUrl = "http://localhost:3000";

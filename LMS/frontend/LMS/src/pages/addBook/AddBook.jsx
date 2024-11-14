@@ -78,7 +78,7 @@ formData.append('image',image)
 
  if(response.status === 200 || response.status === 201){
   navigate("/")
- }
+ }  
  else{
   alert("something is incorrect")
  }
