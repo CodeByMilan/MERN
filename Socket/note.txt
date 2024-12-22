@@ -1,0 +1,34 @@
+/must use the same instance throughout the project
+const io = new Server(server)
+
+io.on('connection', (socket) => {
+    console.log(socket.id)
+    console.log('new client connected')
+
+    //socket.emit means that the backend is sending the data to the client
+    //      socket.emit('sendData',{
+    //         gretting:'hello client'
+    // })
+
+
+
+    //the name in which the client is sending data and the backend receiving the data should be same here ie. sendData
+    //socket.on means that the client is sending the data 
+    socket.on('sendData', (data) => {
+        console.log(data)
+        if (data) {
+            //io is used to send the data to all the device to the  server
+            //ie. io = broadcast and socket is only for one  device
+            io.emit("responseData","sending response to all connected devices")
+//io.to(socket.id).emit is used to send the data to the  specific device
+            // io.to(socket.id).emit("responseData","sending response to the client that whose id is comming in the socket")
+            //socket.emit means that the backend is sending the data to the client
+            // socket.emit('responseData', {
+            //     gretting: 'hello client'
+            // })
+        }
+    })
+    // socket.on('disconnect',()=>{
+    //     console.log('client disconnected')
+    //     })
+})
